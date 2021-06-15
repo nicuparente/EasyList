@@ -1,9 +1,12 @@
 import "../styles/globals.css";
+import { useState } from "react";
+
 import {
   ChakraProvider,
   Container,
   Flex,
   Avatar,
+  Badge,
   Heading,
   Accordion,
   AccordionItem,
@@ -14,64 +17,28 @@ import {
   Center,
   Text,
   Button,
+  ColorModeScript,
   Divider,
   Spacer,
 } from "@chakra-ui/react";
 import Head from "next/head";
 
-const preListingTask = [
-  {
-    name: "Gather documents ",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    status: "Completed",
-  },
-  {
-    name: "Market Research for pricing",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    status: "To Do",
-  },
-];
+import theme from "../styles/theme"
+import TaskList from "../component/TaskList";
+import Footer from "../component/Footer";
 
-const listedTask = [
-  {
-    name: "Schedule open house",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    status: "Completed",
-  },
-  {
-    name: "Respond to emails",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    status: "To Do",
-  },
-  {
-    name: "Accept Offer",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    status: "To Do",
-  },
-];
+import { preListingTaskInitialData, listedTaskInitialData, closingTasksInitialData } from "../data/testData.js";
 
-const pendingTasks = [
-  
-      {
-        name: "Get paperwork completed",
-        content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        status: "Completed",
-      },
-      {
-        name: "Accept Offer",
-        content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        status: "To Do",
-      },
-    ]
+const totalTask = preListingTaskInitialData.length + listedTaskInitialData.length + closingTasksInitialData.length;
+
+
 
 function MyApp({ Component, pageProps }) {
+
+  const [preListingTask, setPreListingTask] = useState(preListingTaskInitialData)
+  const [listedTask, setList] = useState(listedTaskInitialData)
+  const [closingTask, setclosingTask] = useState(closingTasksInitialData)
+
   return (
     <>
       <Head>
@@ -81,143 +48,95 @@ function MyApp({ Component, pageProps }) {
       </Head>
 
       <ChakraProvider>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <body>
-          <Flex top="1rem" right="1rem" align="center" padding="1.5rem">
-            <Heading
-              display={["none", "none", "block", "block"]}
-              as="h1"
-              size="lg"
-            >
-              Easy List
-            </Heading>
-            <Spacer/>
-            <Flex display={["none", "none", "flex", "flex"]}>
-              <Button
-                as="a"
-                variant="ghost"
-                aria-label="/search"
-                my={5}
-                w="100%"
-              >
-                Search
-              </Button>
-              <Button
-                as="a"
-                variant="ghost"
-                aria-label="/list"
-                my={5}
-                w="100%"
-              >
-                List
-              </Button>
-              <Button
-                as="a"
-                variant="ghost"
-                aria-label="/about"
-                my={5}
-                w="100%"
-              >
-                About
-              </Button>
-            </Flex>
-          </Flex>
-          <Flex marginTop="20px" minHeight="900px" minWidth="1080px">
-            <Box width="25%">
-              <Flex
-                justifyItems="center"
-                justifyContent="center"
-                flexGrow="1"
-                flexDirection="column"
-              >
-                <Center>
-                  <Avatar
-                    size="2xl"
-                    name="Nicu"
-                    src="https://avatars.githubusercontent.com/u/7001751?v=4"
-                  />
-                </Center>
-                <Center>
-                  <Heading size="sm">Hello,</Heading>
-                </Center>
-                <Center>
-                  {" "}
-                  <Heading size="lg">Nicu!</Heading>
-                </Center>
+          <Center marginY="2.5%" minWidth="1080px">
+            <Flex  minWidth="1080px" maxWidth="1440px" direction="column">
+              {/* Main Container */}
+              <Flex padding="1.5%" minHeight="900px" maxWidth="1080px" >
+                {/* Container Info Right */}
+                <Box width="25%" backgroundColor="gray.700" padding="20px" borderRadius="10px">
+                  <Flex
+                    minHeight="100%"
+                    justifyItems="center"
+                    justifyContent="center"
+                    flexGrow="1"
+                    flexDirection="column"
+                  >
+                    <Flex flexDirection="column" marginBottom="40px">
+                      <Center>
+                        <Heading>
+                          Easylist
+                        </Heading>
+                      </Center>
+                      <Center>
+                        <Text>by Home Magnet</Text>
 
-                <Spacer />
-                <Heading size="sm">Logout</Heading>
+                      </Center>
+
+
+                    </Flex>
+
+                    <Center>
+                      <Avatar
+                        size="xl"
+                        name="Nicu"
+                        src="https://avatars.githubusercontent.com/u/7001751?v=4"
+                      />
+                    </Center>
+                    <Center marginTop="10px">
+                      <Text>Hello, <strong>Nicu</strong> !</Text>
+                    </Center>
+
+                    <Center borderY="1px" borderRadius="3px" padding="5px" flexDir="column" marginTop="20px">
+                      <Heading size="sm">Property</Heading>
+                      <Text >1234 Yellow Brick Road</Text>
+                      <Text>Wonderland, KS, 99999</Text>
+                    </Center>
+
+                    <Button variant="ghost" marginTop="50px">
+                      Overview
+                    </Button>
+                    <Button marginTop="5px">
+                      Task
+                    </Button>
+                    <Button variant="ghost" marginTop="5px">
+                      Support
+                    </Button>
+
+                    <Spacer />
+                      <Button variant="ghost" colorScheme="red">Logout</Button>
+                  </Flex>
+                </Box>
+
+                {/* Container Task Right */}
+                <Box marginY="10%" width="75%" padding="20px">
+
+                  <Flex flexDir="row-reverse">
+                    <Heading size="md"># of Task : {totalTask}</Heading>
+                  </Flex>
+
+                  <Center marginTop="10px">
+                    <Heading size="md">Pre-Listing Task</Heading>
+                  </Center>
+                  <TaskList taskList={preListingTask} handleCompleted={() => console.log("hello")} />
+                  <Center marginTop="40px">
+                    <Heading size="md">Listed Task</Heading>
+                  </Center>
+                  <TaskList taskList={listedTask} handleCompleted={() => console.log("hello")} />
+                  <Center marginTop="40px">
+                    <Heading size="md">Closing Task</Heading>
+                  </Center>
+                  <TaskList taskList={closingTask} handleCompleted={() => console.log("hello")} />
+                </Box>
               </Flex>
-            </Box>
-            <Box width="75%" padding="10px">
-              <Center marginTop="10px">
-                <Heading size="md">Listed Task</Heading>
-              </Center>
-              <Accordion allowToggle>
-                {preListingTask.map((task) => {
-                  return (
-                    <AccordionItem>
-                      <h2>
-                        <AccordionButton>
-                          <Box flex="1" textAlign="left">
-                            <Text as={task.status == "Completed" ? "s" : ""}>
-                              {task.name}
-                            </Text>
-                          </Box>
-                          <AccordionIcon />
-                        </AccordionButton>
-                      </h2>
-                      <AccordionPanel pb={4}>{task.content}</AccordionPanel>
-                    </AccordionItem>
-                  );
-                })}
-              </Accordion>
-              <Center marginTop="10px">
-                <Heading size="md">Pre Listing Task</Heading>
-              </Center>
-              <Accordion allowToggle>
-                {listedTask.map((task) => {
-                  return (
-                    <AccordionItem>
-                      <h2>
-                        <AccordionButton>
-                          <Box flex="1" textAlign="left">
-                            <Text as={task.status == "Completed" ? "s" : ""}>
-                              {task.name}
-                            </Text>
-                          </Box>
-                          <AccordionIcon />
-                        </AccordionButton>
-                      </h2>
-                      <AccordionPanel pb={4}>{task.content}</AccordionPanel>
-                    </AccordionItem>
-                  );
-                })}
-              </Accordion>
-              <Center marginTop="10px">
-                <Heading size="md">Closing Task</Heading>
-              </Center>
-              <Accordion allowToggle>
-                {pendingTasks.map((task) => {
-                  return (
-                    <AccordionItem>
-                      <h2>
-                        <AccordionButton>
-                          <Box flex="1" textAlign="left">
-                            <Text as={task.status == "Completed" ? "s" : ""}>
-                              {task.name}
-                            </Text>
-                          </Box>
-                          <AccordionIcon />
-                        </AccordionButton>
-                      </h2>
-                      <AccordionPanel pb={4}>{task.content}</AccordionPanel>
-                    </AccordionItem>
-                  );
-                })}
-              </Accordion>
-            </Box>
-          </Flex>
+              <Divider marginTop="2.5%" />
+              <Footer/>
+            </Flex>
+
+          </Center>
         </body>
+        
       </ChakraProvider>
     </>
   );
