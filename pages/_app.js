@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }) {
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <body>
           <Center marginY="2.5%" minWidth="1080px">
-            <Flex  minWidth="1080px" maxWidth="1440px" direction="column">
+            <Flex minWidth="1080px" maxWidth="1440px" direction="column">
               {/* Main Container */}
               <Flex padding="1.5%" minHeight="900px" maxWidth="1080px" >
                 {/* Container Info Right */}
@@ -71,7 +71,6 @@ function MyApp({ Component, pageProps }) {
                       </Center>
                       <Center>
                         <Text>by Home Magnet</Text>
-
                       </Center>
 
 
@@ -105,7 +104,7 @@ function MyApp({ Component, pageProps }) {
                     </Button>
 
                     <Spacer />
-                      <Button variant="ghost" colorScheme="red">Logout</Button>
+                    <Button variant="ghost" colorScheme="red">Logout</Button>
                   </Flex>
                 </Box>
 
@@ -131,12 +130,12 @@ function MyApp({ Component, pageProps }) {
                 </Box>
               </Flex>
               <Divider marginTop="2.5%" />
-              <Footer/>
+              <Footer />
             </Flex>
 
           </Center>
         </body>
-        
+
       </ChakraProvider>
     </>
   );
