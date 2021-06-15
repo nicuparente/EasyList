@@ -21,7 +21,7 @@ const TaskList = (props) => {
     return <Accordion allowToggle>
         {taskList.map((task) => {
             return (
-                <AccordionItem >
+                <AccordionItem  key={task.name}>
                     <h2>
                         <AccordionButton>
                             <Box flex="1" textAlign="left">
